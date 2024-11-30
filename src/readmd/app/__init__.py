@@ -3,6 +3,7 @@ EXAMPLE_TEXT = """
 
 This is an example of Textual's `MarkdownViewer` widget.
 
+![Example Image](static/image.jpg)
 
 ## Features
 
