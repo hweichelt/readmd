@@ -3,6 +3,7 @@
 import asyncio
 from copy import deepcopy
 from datetime import datetime
+from typing import Optional
 
 from textual import on
 from textual.app import App, ComposeResult
@@ -68,7 +69,7 @@ class EditorWidget(Static):
         last_update_before = deepcopy(self._last_changed)
         await asyncio.sleep(0.5)
         if last_update_before == self._last_changed:
-            self._app.query_one(ViewerWidget).text = self._text
+            self._app.query_one(ViewerWidget).update_text(self._text)
 
 
 class ViewerWidget(Static):
@@ -78,6 +79,17 @@ class ViewerWidget(Static):
     def __init__(self, app: ReadmdTextualApp) -> None:
         super().__init__()
         self._app = app
+        self._scroll_to = (0, 0)
+
+        self._viewer: Optional[MarkdownViewer] = None
 
     def compose(self) -> ComposeResult:
-        yield MarkdownViewer(self.text, show_table_of_contents=True)
+        viewer = MarkdownViewer(self.text, show_table_of_contents=False)
+        yield viewer
+        viewer.set_scroll(*self._scroll_to)
+
+    def update_text(self, text: str) -> None:
+        old_x = self.query_one(MarkdownViewer).scroll_x
+        old_y = self.query_one(MarkdownViewer).scroll_y
+        self._scroll_to = (old_x, old_y)
+        self.text = text
