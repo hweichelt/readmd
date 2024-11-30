@@ -13,4 +13,7 @@ MarkdownH1{
     text-align: left;
     border-bottom: wide rgba(255,255,255,0.2);
 }
+TextArea{
+    background: transparent;
+}
 """

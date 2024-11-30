@@ -9,6 +9,7 @@ from textual.app import App, ComposeResult
 from textual.widgets import Footer, TextArea, MarkdownViewer, Static
 from textual.reactive import reactive
 
+from .themes import theme_readmd_dark
 from .style import MAIN_CSS
 from . import EXAMPLE_TEXT
 
@@ -52,7 +53,10 @@ class EditorWidget(Static):
         self._last_changed = datetime.now()
 
     def compose(self) -> ComposeResult:
-        yield TextArea.code_editor(self._text, language="markdown")
+        text_area = TextArea.code_editor(self._text, language="markdown")
+        text_area.register_theme(theme_readmd_dark)
+        text_area.theme = "readmd_dark"
+        yield text_area
 
     @on(TextArea.Changed)
     async def text_changed(self, event: TextArea.Changed) -> None:
