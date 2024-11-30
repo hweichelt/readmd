@@ -8,4 +8,9 @@ Screen{
     grid-size: 2 1;
     background: $color-background;
 }
+
+MarkdownH1{
+    text-align: left;
+    border-bottom: wide rgba(255,255,255,0.2);
+}
 """
