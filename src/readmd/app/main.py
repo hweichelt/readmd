@@ -69,7 +69,7 @@ class EditorWidget(Static):
 
 class ViewerWidget(Static):
 
-    text = reactive("", recompose=True)
+    text = reactive(EXAMPLE_TEXT, recompose=True)
 
     def __init__(self, app: ReadmdTextualApp) -> None:
         super().__init__()
