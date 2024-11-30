@@ -62,7 +62,7 @@ class EditorWidget(Static):
 
     async def _update_viewer(self):
         last_update_before = deepcopy(self._last_changed)
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.5)
         if last_update_before == self._last_changed:
             self._app.query_one(ViewerWidget).text = self._text
 
